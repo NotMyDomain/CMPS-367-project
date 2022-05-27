@@ -31,7 +31,8 @@
 *.out
 *.app
 
-# VS targets
+# VS
+.vs
 Debug
 Release
 
