@@ -12,5 +12,5 @@ basicSubscription::basicSubscription() : subscription()
 void basicSubscription::print()
 {
 	cout << "Basic Subscription\n";
-	cout << "Gigs of data: " << getDataCap() << endl;
+	cout << "GB of data: " << getDataCap() << endl;
 }
