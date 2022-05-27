@@ -23,6 +23,11 @@ void subscription::setTier(subscriptionLevel aTier)
 	tier = aTier;
 }
 
+void subscription::setPhoneNumber(long aPhoneNumber)
+{
+	phoneNumber = aPhoneNumber;
+}
+
 int subscription::getDataCap()
 {
 	return dataCap;
