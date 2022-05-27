@@ -43,7 +43,8 @@ void displayOptions()
 		<< "4. Cancel plan\n"
 		<< "5. Save current changes\n"
 		<< "6. Generate monthly bill\n"
-		<< "7. Exit and save\n";
+		<< "7. Exit and save\n"
+		<< "yes\n";
 
 	int choice;
 
