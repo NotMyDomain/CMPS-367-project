@@ -9,7 +9,13 @@ class account
 public:
 	account();
 	account(std::string fName, std::string lName, int aDay, int aMonth, int aYear, subscription *aSub);
+	string getFName();
+	string getLName();
+	void setFullName(string fName,string lName);
+	void setBirthday(int aDay, int aMonth, int aYear);
+	void setSub(subscription *aSub);
 	~account();
+
 	subscription *getSub();
 
 

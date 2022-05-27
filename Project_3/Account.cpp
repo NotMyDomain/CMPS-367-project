@@ -24,6 +24,36 @@ account::account(string fName, string lName, int aDay, int aMonth, int aYear, su
 	sub = aSub;
 }
 
+string account::getFName()
+{
+
+	return firstName;
+}
+
+string account::getLName()
+{
+	return lastName;
+}
+
+void account::setFullName(string fName, string lName)
+{
+	firstName = fName;
+	lastName = lName;
+}
+
+void account::setBirthday(int aDay, int aMonth, int aYear)
+{
+	day = aDay;
+	month = aMonth;
+	year = aYear;
+}
+
+void account::setSub(subscription * aSub)
+{
+	sub = aSub;
+}
+
+
 account::~account()
 {
 	delete sub;
