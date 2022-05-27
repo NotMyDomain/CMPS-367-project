@@ -11,6 +11,7 @@ public:
 	int getPhoneNumber();
 	void setDataCap(int);
 	void setTier(subscriptionLevel aTier);
+	void setPhoneNumber(long);
 	int getDataCap();
 	subscriptionLevel getTier();
 	virtual void print() {}
