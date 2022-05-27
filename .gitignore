@@ -33,6 +33,8 @@
 
 # VS targets
 .vs
+.vs/
+.vs/*
 Debug
 Release
 

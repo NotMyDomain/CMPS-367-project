@@ -38,7 +38,6 @@ int readCustomerInfo(account allAccounts[])
 {
 
 	fstream accounts("accounts.txt", ios::in);
-	accounts.open;
 	
 	int accountCounter = 0;
 
@@ -163,13 +162,14 @@ bool editPlan(account allAccounts[], const int numAccounts)
 
 	account* acct=accountFinder(allAccounts, numAccounts);
 
-	cout << "What changes would you like to make?\n"
-		<< "1. Edit Name\n"
+		cout << "1. Edit Name\n"
 		<< "2. Edit Birthday\n"
 		<< "3. Request New number\n"
 		<< "4. Edit plan\n";
 
 	int editChoice;
+
+	cout << "What changes would you like to make?: "; cin >> editChoice;
 
 	switch (editChoice)
 	{
@@ -256,8 +256,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 	int choice;
 
 	cout << "How can we help you today?\n"
-		<< "Please make a selection (1-7) : ";
-	cin >> choice;
+		<< "Please make a selection (1-7) : "; cin >> choice;
 
 	switch (choice)
 	{
@@ -265,7 +264,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		startPlan(allAccounts, numAccounts);
 		break;
 	case 2: 
-		editPlan()
+		editPlan(allAccounts, numAccounts);
 		break;
 	case 3: break;
 	case 4: break;
@@ -274,8 +273,6 @@ void displayOptions(account allAccounts[], int &numAccounts)
 	case 7: 
 		cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
 		break;
-
-
 	}
 
 }
