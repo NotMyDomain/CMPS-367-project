@@ -123,10 +123,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Account.cpp" />
+    <ClCompile Include="BasicSub.cpp" />
+    <ClCompile Include="PlatSub.cpp" />
+    <ClCompile Include="PremSub.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Subscription.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="accounts.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="BasicSub.h" />
+    <ClInclude Include="PlatSub.h" />
+    <ClInclude Include="PremSub.h" />
+    <ClInclude Include="Subscription.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
