@@ -206,7 +206,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		subscription *aSub;
 		string newTier;
 
-		cout << "\tPlans\n";
+		cout << "\n\tPlans\n";
 		cout << "Basic\tPremium\tPlatinum\n";
 		cout << "Which plan would you like to change to?: "; cin >> newTier;
 
@@ -244,44 +244,46 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 
 void displayOptions(account allAccounts[], int &numAccounts)
 {
-	cout << "\t\tA Phone Company\n";
-	cout << setfill('-')<< setw(40) << "\n";
-	cout << "1. Start a new plan\n"
-		<< "2. Edit account & current plan\n"
-		<< "3. View Availble plans & bundles\n"
-		<< "4. Cancel plan\n"
-		<< "5. Save current changes\n"
-		<< "6. Customize plan\n"
-		<< "7. Exit and save\n"
-		<< "8. DEBUG DELETE LATER: Print all accounts";
-
-	int choice;
-
-	cout << "How can we help you today?\n"
-		<< "Please make a selection (1-7) : "; cin >> choice;
-
-	switch (choice)
+	while (true)
 	{
-	case 1:
-		startPlan(allAccounts, numAccounts);
-		break;
-	case 2: 
-		editAccountAndPlan(allAccounts, numAccounts);
-		break;
-	case 3: break;
-	case 4: break;
-	case 5: break;
-	case 6: break;
-	case 7: 
-		cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
-		break;
-	case 8:
-		for (int i = 0; i < numAccounts; i++)
+		cout << "\t\tA Phone Company\n";
+		cout << setfill('-') << setw(40) << "\n";
+		cout << "1. Start a new plan\n"
+			<< "2. Edit account & current plan\n"
+			<< "3. View Available plans & bundles\n"
+			<< "4. Cancel plan\n"
+			<< "5. Save current changes\n"
+			<< "6. Customize plan\n"
+			<< "7. Exit and save\n"
+			<< "8. DEBUG DELETE LATER: Print all accounts\n";
+
+		int choice;
+
+		cout << "How can we help you today?\n"
+			<< "Please make a selection (1-7) : "; cin >> choice;
+
+		switch (choice)
 		{
-			allAccounts[i].print();
+		case 1:
+			startPlan(allAccounts, numAccounts);
+			break;
+		case 2:
+			editAccountAndPlan(allAccounts, numAccounts);
+			break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+		case 6: break;
+		case 7:
+			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
+			break;
+		case 8:
+			for (int i = 0; i < numAccounts; i++)
+			{
+				allAccounts[i].print();
+			}
 		}
 	}
-
 }
 
 
