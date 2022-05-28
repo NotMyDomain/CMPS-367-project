@@ -14,6 +14,7 @@ public:
 	void setFullName(std::string fName, std::string lName);
 	void setBirthday(int aDay, int aMonth, int aYear);
 	void setSub(subscription *aSub);
+	void print();
 	~account();
 
 	subscription *getSub();

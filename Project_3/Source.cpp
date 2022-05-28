@@ -15,7 +15,7 @@ int readCustomerInfo(account allAccounts[]);
 void displayOptions(account allAccounts[], int &numAccounts);
 bool startPlan(account allAccounts[], int &numAccounts);
 account *accountFinder(account allAccounts[], const int numAccounts);
-bool editPlan(account allAccounts[], const int numAccounts);
+bool editAccountAndPlan(account allAccounts[], const int numAccounts);
 void generateSubBill();
 
 
@@ -23,12 +23,11 @@ void generateSubBill();
 
 int main()
 {
+	srand(time(NULL)); //set random phone number
 	const int numOfAccounts = 512; // Make enough spaces of accounts
 	account accounts[numOfAccounts];
 
 	int numAccounts = readCustomerInfo(accounts);
-
-	srand(time(NULL)); //set random phone number
 	displayOptions(accounts,numAccounts);
 	system("pause");
 	return 0;
@@ -79,9 +78,8 @@ int readCustomerInfo(account allAccounts[])
 
 		//create account from read data
 		aSub->setPhoneNumber(aPhoneNumber);
-		account aCustomerAccount(fName, lName, aDay, aMonth, aYear,aSub);
-
-		allAccounts[accountCounter] = aCustomerAccount;
+		account *aCustomerAccount = new account(fName, lName, aDay, aMonth, aYear,aSub);
+		allAccounts[accountCounter] = *aCustomerAccount;
 
 		accountCounter++;
 	}
@@ -129,9 +127,8 @@ bool startPlan(account allAccounts[], int &numAccounts)
 	cout << "Your randomly assigned phone number: " << aSub->getPhoneNumber() << endl;
 
 	
-	account newAccount(fName, lName, aDay, aMonth, aYear, aSub);
-
-	allAccounts[numAccounts] = newAccount;
+	account *newAccount = new account(fName, lName, aDay, aMonth, aYear, aSub);
+	allAccounts[numAccounts] = *newAccount;
 
 	numAccounts++;
 
@@ -158,7 +155,7 @@ account * accountFinder(account allAccounts[], const int numAccounts)
 	return nullptr;
 }
 
-bool editPlan(account allAccounts[], const int numAccounts)
+bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 {
 
 	account* acct=accountFinder(allAccounts, numAccounts);
@@ -255,7 +252,8 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		<< "4. Cancel plan\n"
 		<< "5. Save current changes\n"
 		<< "6. Customize plan\n"
-		<< "7. Exit and save\n";
+		<< "7. Exit and save\n"
+		<< "8. DEBUG DELETE LATER: Print all accounts";
 
 	int choice;
 
@@ -268,7 +266,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		startPlan(allAccounts, numAccounts);
 		break;
 	case 2: 
-		editPlan(allAccounts, numAccounts);
+		editAccountAndPlan(allAccounts, numAccounts);
 		break;
 	case 3: break;
 	case 4: break;
@@ -277,6 +275,11 @@ void displayOptions(account allAccounts[], int &numAccounts)
 	case 7: 
 		cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
 		break;
+	case 8:
+		for (int i = 0; i < numAccounts; i++)
+		{
+			allAccounts[i].print();
+		}
 	}
 
 }

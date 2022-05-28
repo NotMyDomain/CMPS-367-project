@@ -13,4 +13,5 @@ void platinumSubscription::print()
 {
 	cout << "Platinum Subscription\n";
 	cout << "Gigs of Data: " << getDataCap() << endl;
+	cout << "Phone number: " << getPhoneNumber() << endl;
 }

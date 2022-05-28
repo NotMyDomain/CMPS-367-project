@@ -13,4 +13,5 @@ void basicSubscription::print()
 {
 	cout << "Basic Subscription\n";
 	cout << "Gigs of data: " << getDataCap() << endl;
+	cout << "Phone number: " << getPhoneNumber() << endl;
 }
