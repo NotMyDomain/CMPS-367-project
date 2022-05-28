@@ -17,10 +17,6 @@ bool startPlan(account allAccounts[], int &numAccounts);
 account *accountFinder(account allAccounts[], const int numAccounts);
 bool editAccountAndPlan(account allAccounts[], const int numAccounts);
 
-
-
-
-
 int main()
 {
 	srand(time(NULL)); //set random phone number
@@ -263,7 +259,8 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		int choice;
 
 		cout << "How can we help you today?\n"
-			<< "Please make a selection (1-7) : "; cin >> choice;
+			<< "Please make a selection (1-8) : "; cin >> choice;
+		cout << endl;
 
 		switch (choice)
 		{
@@ -310,7 +307,11 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		}
 			break;
 		case 7: 
+		{
+			account *acct = accountFinder(allAccounts, numAccounts);
+			cout << "Your bill is: $" << acct->getSub()->generateBill() << endl;
 			break;
+		}
 		case 8:
 			// Clear and reopen accounts file
 			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);

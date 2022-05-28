@@ -90,6 +90,8 @@ string account::toEntry()
 	else if (sub->getTier() == PREMIUM) tier = "PREMIUM";
 	else if (sub->getTier() == PLATINUM) tier = "PLATINUM";
 
+	// TODO:Edwin please save add-on information to file
+
 	stringstream ss;
 	ss << firstName << " " << lastName << " " << day << " " << month << " " << year << " " << tier << " " << sub->getPhoneNumber() << " " << closed;
 	return ss.str();
