@@ -1,6 +1,8 @@
 #pragma once
 #ifndef  SUBSCRIPTION_H
 #define SUBSCRIPTION_H
+#include <iostream>
+#include <string>
 
 enum subscriptionLevel { BASIC, PREMIUM, PLATINUM };
 
@@ -8,15 +10,15 @@ class subscription
 {
 public:
 	subscription();
-	int getPhoneNumber();
 	void setDataCap(int);
 	void setTier(subscriptionLevel aTier);
-	void setPhoneNumber(long);
+	void setPhoneNumber(std::string);
 	int getDataCap();
+	std::string getPhoneNumber();
 	subscriptionLevel getTier();
 	virtual void print() {}
 private:
-	long phoneNumber;
+	std::string phoneNumber;
 	int dataCap;
 	subscriptionLevel tier;
 

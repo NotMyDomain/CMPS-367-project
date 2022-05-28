@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <ctime>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -52,7 +53,7 @@ int readCustomerInfo(account allAccounts[])
 		int aMonth;
 		int aYear;
 		string aTier;
-		long aPhoneNumber;
+		string aPhoneNumber;
 		subscription *aSub;
 
 		//read elements from file
@@ -193,9 +194,12 @@ bool editPlan(account allAccounts[], const int numAccounts)
 	}
 	case 3:
 	{
-		long newPhoneNumber = rand() % 8999999999 + 1000000000;
-		cout << "Here is your new number: " << newPhoneNumber << endl;
-		acct->getSub()->setPhoneNumber(newPhoneNumber);
+		int randomNumber = rand() % 8999999 + 1000000; //randomized phone number assinged
+		stringstream ss;
+		ss << randomNumber;
+		string aPhoneNumber = "909" + ss.str();
+		cout << "Here is your new number: " << aPhoneNumber << endl;
+		acct->getSub()->setPhoneNumber(aPhoneNumber);
 		break;
 	}
 	case 4:
