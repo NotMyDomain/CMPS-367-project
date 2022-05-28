@@ -17,6 +17,14 @@ void platinumSubscription::print()
 	cout << "Platinum Subscription\n";
 	cout << "Gigs of Data: " << getDataCap() << endl;
 	cout << "Phone number: " << getPhoneNumber() << endl;
+	cout << "Add-ons\n";
+	cout << "+Insurance\n";
+	cout << "+Streaming Services\n";
+	cout << "+24-hr Services\n";
+	cout << "+TV Package\n";
+	
+	if (hasMusicService)
+		cout << "+Premium Music Service\n";
 }
 
 float platinumSubscription::generateBill()
@@ -32,4 +40,20 @@ float platinumSubscription::generateBill()
 void platinumSubscription::setMusicService(bool aMusicService)
 {
 	hasMusicService = aMusicService;
+}
+
+void platinumSubscription::customizePlan()
+{
+	char choice;
+	cout << "Would you like to add-on a Premium Music service for $30.00?(Y/N): "; cin >> choice;
+
+	if (choice == 'Y' || choice == 'y')
+	{
+		hasMusicService = true;
+	}
+	else
+	{
+		hasMusicService = false;
+	}
+
 }

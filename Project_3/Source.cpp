@@ -16,7 +16,7 @@ void displayOptions(account allAccounts[], int &numAccounts);
 bool startPlan(account allAccounts[], int &numAccounts);
 account *accountFinder(account allAccounts[], const int numAccounts);
 bool editAccountAndPlan(account allAccounts[], const int numAccounts);
-void generateSubBill();
+
 
 
 
@@ -248,16 +248,16 @@ void displayOptions(account allAccounts[], int &numAccounts)
 {
 	while (true)
 	{
-		cout << "\tA Phone Company\n";
+		cout << "\n\tA Phone Company\n";
 		cout << setfill('-') << setw(40) << "\n";
 		cout << "1. Start a new plan\n"
 			<< "2. Edit account & current plan\n"
 			<< "3. View Available plans & add-ons\n"
 			<< "4. Cancel plan\n"
-			<< "5. Save current changes\n"
+			<< "5. Print All Accounts\n"
 			<< "6. Customize plan\n"
-			<< "7. Exit and save\n"
-			<< "8. DEBUG DELETE LATER: Print all accounts\n";
+			<< "7. Print Account Bill\n"
+			<< "8. Exit and save\n";
 
 		int choice;
 
@@ -295,16 +295,24 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			cout << "\nAccount is now closed, Thank you for choosing us!\n";
 			break;
 		}
-		case 5: break;
-		case 6: break;
-		case 7:
-			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
-			break;
-		case 8:
+		case 5:
 			for (int i = 0; i < numAccounts; i++)
 			{
 				allAccounts[i].print();
 			}
+			break;
+		case 6: 
+		{
+			account *acct = accountFinder(allAccounts, numAccounts);
+			acct->getSub()->customizePlan();
+			acct->print();
+		}
+			break;
+		case 7: 
+			break;
+		case 8:
+			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
+			break;
 		}
 	}
 }

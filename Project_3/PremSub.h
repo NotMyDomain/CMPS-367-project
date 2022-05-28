@@ -13,6 +13,7 @@ public:
 	void setStreamingServices(bool aStreamingService);
 	void setTVPackage(bool aTVPackage);
 	void set24HrService(bool a24HrService);
+	void customizePlan() override;
 private:
 	bool hasStreamingServices;
 	bool hasTVPackage;

@@ -11,6 +11,8 @@ public:
 	void print() override;
 	float generateBill() override;
 	void setHasInsurance(bool);
+	void customizePlan() override;
+
 private:
 	bool hasInsurance;
 };

@@ -11,6 +11,7 @@ public:
 	void print() override;
 	float generateBill() override;
 	void setMusicService(bool);
+	void customizePlan() override;
 private:
 	bool hasMusicService;
 };
