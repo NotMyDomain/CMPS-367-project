@@ -252,7 +252,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		cout << setfill('-') << setw(40) << "\n";
 		cout << "1. Start a new plan\n"
 			<< "2. Edit account & current plan\n"
-			<< "3. View Available plans & bundles\n"
+			<< "3. View Available plans & add-ons\n"
 			<< "4. Cancel plan\n"
 			<< "5. Save current changes\n"
 			<< "6. Customize plan\n"
@@ -273,6 +273,20 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			editAccountAndPlan(allAccounts, numAccounts);
 			break;
 		case 3: 
+			cout << endl;
+			cout << "\t\t\tPlans & Bundles\n";
+			cout << setfill('-') << setw(60) << "\n";
+			cout << "Plans:\n"
+				<< "\tBasic" << setfill('.') << setw(18) << "$65.00\n"
+				<< "\tPremium" << setfill('.') << setw(18) << "$120.00\n"
+				<< "\tPlatinum" << setfill('.') << setw(19) << "$160.00\n"
+				<< "Add-ons:\n"
+				<< "\tInsurance" << setfill('.') << setw(19) << "$5.00\n"
+				<< "\tVideo Streaming Service" << setfill('.') << setw(18) << "$10.00\n"
+				<< "\t24-Hr Help Services" << setfill('.') << setw(18) << "$15.00\n"
+				<< "\tTV Package" << setfill('.') << setw(19) << "$20.00\n"
+				<< "\tPremium Music service" << setfill('.') << setw(18) << "$30.00\n";
+			cout << endl;
 			break;
 		case 4:
 		{
