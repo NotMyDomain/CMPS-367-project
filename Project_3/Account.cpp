@@ -53,6 +53,16 @@ void account::setSub(subscription * aSub)
 	sub = aSub;
 }
 
+void account::print()
+{
+	cout << endl;
+	cout << "First name: " << firstName << endl;
+	cout << "Last name: " << lastName << endl;
+	cout << "Birthday: " << month << "/" << day << "/" << year << endl;
+	sub->print();
+	cout << endl;
+}
+
 
 account::~account()
 {

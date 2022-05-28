@@ -1,14 +1,23 @@
 #include "Subscription.h"
 #include <cstdlib>
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
 
 subscription::subscription()
 {
-	phoneNumber = rand() % 8999999999 + 1000000000; //randomized phone number assinged
+	int randomNumber = rand() % 8999999 + 1000000; //randomized phone number assinged
+	stringstream ss;
+	ss << randomNumber;
+	phoneNumber = "909" + ss.str();
+
 	dataCap = -1; //not set 
 }
 
 
-int subscription::getPhoneNumber()
+string subscription::getPhoneNumber()
 {
 	return phoneNumber;
 }
@@ -23,7 +32,7 @@ void subscription::setTier(subscriptionLevel aTier)
 	tier = aTier;
 }
 
-void subscription::setPhoneNumber(long aPhoneNumber)
+void subscription::setPhoneNumber(string aPhoneNumber)
 {
 	phoneNumber = aPhoneNumber;
 }

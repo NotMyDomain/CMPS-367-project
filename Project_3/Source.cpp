@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <ctime>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int readCustomerInfo(account allAccounts[]);
 void displayOptions(account allAccounts[], int &numAccounts);
 bool startPlan(account allAccounts[], int &numAccounts);
 account *accountFinder(account allAccounts[], const int numAccounts);
-bool editPlan(account allAccounts[], const int numAccounts);
+bool editAccountAndPlan(account allAccounts[], const int numAccounts);
 void generateSubBill();
 
 
@@ -22,12 +23,11 @@ void generateSubBill();
 
 int main()
 {
+	srand(time(NULL)); //set random phone number
 	const int numOfAccounts = 512; // Make enough spaces of accounts
 	account accounts[numOfAccounts];
 
 	int numAccounts = readCustomerInfo(accounts);
-
-	srand(time(NULL)); //set random phone number
 	displayOptions(accounts,numAccounts);
 	system("pause");
 	return 0;
@@ -52,7 +52,7 @@ int readCustomerInfo(account allAccounts[])
 		int aMonth;
 		int aYear;
 		string aTier;
-		long aPhoneNumber;
+		string aPhoneNumber;
 		subscription *aSub;
 
 		//read elements from file
@@ -78,9 +78,8 @@ int readCustomerInfo(account allAccounts[])
 
 		//create account from read data
 		aSub->setPhoneNumber(aPhoneNumber);
-		account aCustomerAccount(fName, lName, aDay, aMonth, aYear,aSub);
-
-		allAccounts[accountCounter] = aCustomerAccount;
+		account *aCustomerAccount = new account(fName, lName, aDay, aMonth, aYear,aSub);
+		allAccounts[accountCounter] = *aCustomerAccount;
 
 		accountCounter++;
 	}
@@ -128,9 +127,8 @@ bool startPlan(account allAccounts[], int &numAccounts)
 	cout << "Your randomly assigned phone number: " << aSub->getPhoneNumber() << endl;
 
 	
-	account newAccount(fName, lName, aDay, aMonth, aYear, aSub);
-
-	allAccounts[numAccounts] = newAccount;
+	account *newAccount = new account(fName, lName, aDay, aMonth, aYear, aSub);
+	allAccounts[numAccounts] = *newAccount;
 
 	numAccounts++;
 
@@ -157,7 +155,7 @@ account * accountFinder(account allAccounts[], const int numAccounts)
 	return nullptr;
 }
 
-bool editPlan(account allAccounts[], const int numAccounts)
+bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 {
 
 	account* acct=accountFinder(allAccounts, numAccounts);
@@ -193,9 +191,12 @@ bool editPlan(account allAccounts[], const int numAccounts)
 	}
 	case 3:
 	{
-		long newPhoneNumber = rand() % 8999999999 + 1000000000;
-		cout << "Here is your new number: " << newPhoneNumber << endl;
-		acct->getSub()->setPhoneNumber(newPhoneNumber);
+		int randomNumber = rand() % 8999999 + 1000000; //randomized phone number assinged
+		stringstream ss;
+		ss << randomNumber;
+		string aPhoneNumber = "909" + ss.str();
+		cout << "Here is your new number: " << aPhoneNumber << endl;
+		acct->getSub()->setPhoneNumber(aPhoneNumber);
 		break;
 	}
 	case 4:
@@ -205,7 +206,7 @@ bool editPlan(account allAccounts[], const int numAccounts)
 		subscription *aSub;
 		string newTier;
 
-		cout << "\tPlans\n";
+		cout << "\n\tPlans\n";
 		cout << "Basic\tPremium\tPlatinum\n";
 		cout << "Which plan would you like to change to?: "; cin >> newTier;
 
@@ -243,38 +244,46 @@ bool editPlan(account allAccounts[], const int numAccounts)
 
 void displayOptions(account allAccounts[], int &numAccounts)
 {
-	cout << "\t\tA Phone Company\n";
-	cout << setfill('-')<< setw(40) << "\n";
-	cout << "1. Start a new plan\n"
-		<< "2. Edit account & current plan\n"
-		<< "3. View Availble plans & bundles\n"
-		<< "4. Cancel plan\n"
-		<< "5. Save current changes\n"
-		<< "6. Customize plan\n"
-		<< "7. Exit and save\n";
-
-	int choice;
-
-	cout << "How can we help you today?\n"
-		<< "Please make a selection (1-7) : "; cin >> choice;
-
-	switch (choice)
+	while (true)
 	{
-	case 1:
-		startPlan(allAccounts, numAccounts);
-		break;
-	case 2: 
-		editPlan(allAccounts, numAccounts);
-		break;
-	case 3: break;
-	case 4: break;
-	case 5: break;
-	case 6: break;
-	case 7: 
-		cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
-		break;
-	}
+		cout << "\t\tA Phone Company\n";
+		cout << setfill('-') << setw(40) << "\n";
+		cout << "1. Start a new plan\n"
+			<< "2. Edit account & current plan\n"
+			<< "3. View Available plans & bundles\n"
+			<< "4. Cancel plan\n"
+			<< "5. Save current changes\n"
+			<< "6. Customize plan\n"
+			<< "7. Exit and save\n"
+			<< "8. DEBUG DELETE LATER: Print all accounts\n";
 
+		int choice;
+
+		cout << "How can we help you today?\n"
+			<< "Please make a selection (1-7) : "; cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+			startPlan(allAccounts, numAccounts);
+			break;
+		case 2:
+			editAccountAndPlan(allAccounts, numAccounts);
+			break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+		case 6: break;
+		case 7:
+			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
+			break;
+		case 8:
+			for (int i = 0; i < numAccounts; i++)
+			{
+				allAccounts[i].print();
+			}
+		}
+	}
 }
 
 
