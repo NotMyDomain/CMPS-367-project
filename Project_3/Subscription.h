@@ -17,6 +17,7 @@ public:
 	std::string getPhoneNumber();
 	subscriptionLevel getTier();
 	virtual void print() {}
+	virtual float generateBill() { return 0; }
 private:
 	std::string phoneNumber;
 	int dataCap;
