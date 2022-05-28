@@ -8,7 +8,7 @@ class platinumSubscription : public premiumSubscription
 {
 public:
 	platinumSubscription();
-	void print() override;
+	//void print() override;
 private:
 };
 #endif // !PLATSUB_H

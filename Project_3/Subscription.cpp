@@ -1,5 +1,8 @@
 #include "Subscription.h"
 #include <cstdlib>
+#include <iostream>
+
+using namespace std;
 
 subscription::subscription()
 {
@@ -36,4 +39,22 @@ int subscription::getDataCap()
 subscriptionLevel subscription::getTier()
 {
 	return tier;
+}
+
+void subscription::print()
+{
+	cout << "This is the phone Number: " << phoneNumber << endl;
+	cout << "This is the data cap: " << dataCap << endl;
+	switch (tier)
+	{
+	case 0:
+		cout << "This account has a Basic plan\n";
+		break;
+	case 1: 
+		cout << "This account has a Premium plan\n";
+		break;
+	case 2:
+		cout << "This account has a platinum plan\t";
+		break;
+	}
 }

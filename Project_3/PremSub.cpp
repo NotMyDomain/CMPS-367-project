@@ -8,8 +8,10 @@ premiumSubscription::premiumSubscription() : basicSubscription()
 	setTier(PREMIUM);
 }
 
+/*
 void premiumSubscription::print()
 {
 	cout << "Premium Subscription\n";
 	cout << "Gigs of Data: " << getDataCap() << endl;
 }
+*/

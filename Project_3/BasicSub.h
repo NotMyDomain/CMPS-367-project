@@ -8,10 +8,8 @@ class basicSubscription : public subscription
 {
 public:
 	basicSubscription();
-	void print() override;
+	//void print() override;
 private:
-
-
 };
 
 #endif // !BASICSUB_H

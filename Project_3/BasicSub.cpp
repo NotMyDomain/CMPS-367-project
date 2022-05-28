@@ -9,8 +9,11 @@ basicSubscription::basicSubscription() : subscription()
 	setTier(BASIC);
 }
 
+/*
 void basicSubscription::print()
 {
 	cout << "Basic Subscription\n";
 	cout << "Gigs of data: " << getDataCap() << endl;
+	//Basic account doesn't get any streaming platforms
 }
+*/

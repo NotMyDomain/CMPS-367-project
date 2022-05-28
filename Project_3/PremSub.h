@@ -8,7 +8,7 @@ class premiumSubscription : public basicSubscription
 {
 public:
 	premiumSubscription();
-	void print() override;
+	//void print() override;
 private:
 };
 
