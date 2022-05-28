@@ -54,9 +54,10 @@ int readCustomerInfo(account allAccounts[])
 		string aTier;
 		string aPhoneNumber;
 		subscription *aSub;
+		bool aClosed;
 
 		//read elements from file
-		accounts >> fName >> lName >> aDay >> aMonth >> aYear >> aTier >> aPhoneNumber;
+		accounts >> fName >> lName >> aDay >> aMonth >> aYear >> aTier >> aPhoneNumber >> aClosed;
 
 		if (aTier == "BASIC")
 		{
@@ -79,6 +80,7 @@ int readCustomerInfo(account allAccounts[])
 		//create account from read data
 		aSub->setPhoneNumber(aPhoneNumber);
 		account *aCustomerAccount = new account(fName, lName, aDay, aMonth, aYear,aSub);
+		aCustomerAccount->setClosed(aClosed);
 		allAccounts[accountCounter] = *aCustomerAccount;
 
 		accountCounter++;
@@ -246,7 +248,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 {
 	while (true)
 	{
-		cout << "\t\tA Phone Company\n";
+		cout << "\tA Phone Company\n";
 		cout << setfill('-') << setw(40) << "\n";
 		cout << "1. Start a new plan\n"
 			<< "2. Edit account & current plan\n"
@@ -270,8 +272,15 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		case 2:
 			editAccountAndPlan(allAccounts, numAccounts);
 			break;
-		case 3: break;
-		case 4: break;
+		case 3: 
+			break;
+		case 4:
+		{
+			account *acct = accountFinder(allAccounts, numAccounts);
+			acct->setClosed(true);
+			cout << "\nAccount is now closed, Thank you for choosing us!\n";
+			break;
+		}
 		case 5: break;
 		case 6: break;
 		case 7:

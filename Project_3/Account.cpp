@@ -35,6 +35,11 @@ string account::getLName()
 	return lastName;
 }
 
+void account::setClosed(bool aClosed)
+{
+	closed = aClosed;
+}
+
 void account::setFullName(string fName, string lName)
 {
 	firstName = fName;
@@ -60,7 +65,21 @@ void account::print()
 	cout << "Last name: " << lastName << endl;
 	cout << "Birthday: " << month << "/" << day << "/" << year << endl;
 	sub->print();
+
+	if (closed)
+	{
+		cout << "Account status: Closed" << endl;
+	}
+	else
+	{
+		cout << "Account status: Open" << endl;
+	}
 	cout << endl;
+}
+
+bool account::getClosed()
+{
+	return closed;
 }
 
 
