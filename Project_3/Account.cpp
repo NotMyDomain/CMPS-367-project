@@ -1,6 +1,7 @@
 #include "Account.h"
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -35,6 +36,11 @@ string account::getLName()
 	return lastName;
 }
 
+void account::setClosed(bool aClosed)
+{
+	closed = aClosed;
+}
+
 void account::setFullName(string fName, string lName)
 {
 	firstName = fName;
@@ -60,7 +66,35 @@ void account::print()
 	cout << "Last name: " << lastName << endl;
 	cout << "Birthday: " << month << "/" << day << "/" << year << endl;
 	sub->print();
+
+	if (closed)
+	{
+		cout << "Account status: Closed" << endl;
+	}
+	else
+	{
+		cout << "Account status: Open" << endl;
+	}
 	cout << endl;
+}
+
+bool account::getClosed()
+{
+	return closed;
+}
+
+string account::toEntry()
+{
+	string tier;
+	if (sub->getTier() == BASIC) tier = "BASIC";
+	else if (sub->getTier() == PREMIUM) tier = "PREMIUM";
+	else if (sub->getTier() == PLATINUM) tier = "PLATINUM";
+
+	// TODO:Edwin please save add-on information to file
+
+	stringstream ss;
+	ss << firstName << " " << lastName << " " << day << " " << month << " " << year << " " << tier << " " << sub->getPhoneNumber() << " " << closed;
+	return ss.str();
 }
 
 

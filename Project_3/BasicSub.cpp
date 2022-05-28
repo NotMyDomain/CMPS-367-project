@@ -14,6 +14,9 @@ void basicSubscription::print()
 	cout << "Basic Subscription\n";
 	cout << "Gigs of data: " << getDataCap() << endl;
 	cout << "Phone number: " << getPhoneNumber() << endl;
+	cout << "Add-ons\n";
+	if (hasInsurance)
+		cout << "+Insurance" << endl;
 }
 
 float basicSubscription::generateBill()
@@ -26,4 +29,19 @@ float basicSubscription::generateBill()
 void basicSubscription::setHasInsurance(bool anInsurance)
 {
 	hasInsurance = anInsurance;
+}
+
+void basicSubscription::customizePlan()
+{
+	char choice;
+	cout << "Would you like to add-on Insurance for $5.00?(Y/N): "; cin >> choice;
+
+	if (choice == 'Y'|| choice == 'y')
+	{
+		hasInsurance = true;
+	}
+	else
+	{
+		hasInsurance = false;
+	}
 }

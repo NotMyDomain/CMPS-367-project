@@ -16,10 +16,6 @@ void displayOptions(account allAccounts[], int &numAccounts);
 bool startPlan(account allAccounts[], int &numAccounts);
 account *accountFinder(account allAccounts[], const int numAccounts);
 bool editAccountAndPlan(account allAccounts[], const int numAccounts);
-void generateSubBill();
-
-
-
 
 int main()
 {
@@ -54,9 +50,10 @@ int readCustomerInfo(account allAccounts[])
 		string aTier;
 		string aPhoneNumber;
 		subscription *aSub;
+		bool aClosed;
 
 		//read elements from file
-		accounts >> fName >> lName >> aDay >> aMonth >> aYear >> aTier >> aPhoneNumber;
+		accounts >> fName >> lName >> aDay >> aMonth >> aYear >> aTier >> aPhoneNumber >> aClosed;
 
 		if (aTier == "BASIC")
 		{
@@ -79,11 +76,12 @@ int readCustomerInfo(account allAccounts[])
 		//create account from read data
 		aSub->setPhoneNumber(aPhoneNumber);
 		account *aCustomerAccount = new account(fName, lName, aDay, aMonth, aYear,aSub);
+		aCustomerAccount->setClosed(aClosed);
 		allAccounts[accountCounter] = *aCustomerAccount;
 
 		accountCounter++;
 	}
-
+	accounts.close();
 	return accountCounter;
 }
 
@@ -244,23 +242,25 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 
 void displayOptions(account allAccounts[], int &numAccounts)
 {
-	while (true)
+	bool cont = true;
+	while (cont)
 	{
-		cout << "\t\tA Phone Company\n";
+		cout << "\n\tA Phone Company\n";
 		cout << setfill('-') << setw(40) << "\n";
 		cout << "1. Start a new plan\n"
 			<< "2. Edit account & current plan\n"
-			<< "3. View Available plans & bundles\n"
+			<< "3. View Available plans & add-ons\n"
 			<< "4. Cancel plan\n"
-			<< "5. Save current changes\n"
+			<< "5. Print All Accounts\n"
 			<< "6. Customize plan\n"
-			<< "7. Exit and save\n"
-			<< "8. DEBUG DELETE LATER: Print all accounts\n";
+			<< "7. Print Account Bill\n"
+			<< "8. Exit and save\n";
 
 		int choice;
 
 		cout << "How can we help you today?\n"
-			<< "Please make a selection (1-7) : "; cin >> choice;
+			<< "Please make a selection (1-8) : "; cin >> choice;
+		cout << endl;
 
 		switch (choice)
 		{
@@ -270,18 +270,64 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		case 2:
 			editAccountAndPlan(allAccounts, numAccounts);
 			break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
-		case 6: break;
-		case 7:
-			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
+		case 3: 
+			cout << endl;
+			cout << "\t\t\tPlans & Bundles\n";
+			cout << setfill('-') << setw(60) << "\n";
+			cout << "Plans:\n"
+				<< "\tBasic" << setfill('.') << setw(18) << "$65.00\n"
+				<< "\tPremium" << setfill('.') << setw(18) << "$120.00\n"
+				<< "\tPlatinum" << setfill('.') << setw(19) << "$160.00\n"
+				<< "Add-ons:\n"
+				<< "\tInsurance" << setfill('.') << setw(19) << "$5.00\n"
+				<< "\tVideo Streaming Service" << setfill('.') << setw(18) << "$10.00\n"
+				<< "\t24-Hr Help Services" << setfill('.') << setw(18) << "$15.00\n"
+				<< "\tTV Package" << setfill('.') << setw(19) << "$20.00\n"
+				<< "\tPremium Music service" << setfill('.') << setw(18) << "$30.00\n";
+			cout << endl;
 			break;
-		case 8:
+		case 4:
+		{
+			account *acct = accountFinder(allAccounts, numAccounts);
+			acct->setClosed(true);
+			cout << "\nAccount is now closed, Thank you for choosing us!\n";
+			break;
+		}
+		case 5:
 			for (int i = 0; i < numAccounts; i++)
 			{
 				allAccounts[i].print();
 			}
+			break;
+		case 6: 
+		{
+			account *acct = accountFinder(allAccounts, numAccounts);
+			acct->getSub()->customizePlan();
+			acct->print();
+		}
+			break;
+		case 7: 
+		{
+			account *acct = accountFinder(allAccounts, numAccounts);
+			cout << "Your bill is: $" << acct->getSub()->generateBill() << endl;
+			break;
+		}
+		case 8:
+			// Clear and reopen accounts file
+			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);
+
+			// Write accounts to file
+			for (int i = 0; i < numAccounts; i++)
+			{
+				accountsTxt << allAccounts[i].toEntry();
+				accountsTxt << "\n";
+			}
+
+			accountsTxt.close();
+
+			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
+			cont = false;
+			break;
 		}
 	}
 }

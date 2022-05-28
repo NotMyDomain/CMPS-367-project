@@ -11,10 +11,13 @@ public:
 	account(std::string fName, std::string lName, int aDay, int aMonth, int aYear, subscription *aSub);
     std::string getFName();
 	std::string getLName();
+	void setClosed(bool closed);
 	void setFullName(std::string fName, std::string lName);
 	void setBirthday(int aDay, int aMonth, int aYear);
 	void setSub(subscription *aSub);
 	void print();
+	bool getClosed();
+	std::string toEntry();
 	~account();
 
 	subscription *getSub();
@@ -27,5 +30,6 @@ private:
 	int month;
 	int year;
 	subscription *sub;
+	bool closed;
 };
 #endif // !ACCOUNT_H
