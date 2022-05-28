@@ -85,7 +85,7 @@ int readCustomerInfo(account allAccounts[])
 
 		accountCounter++;
 	}
-
+	accounts.close();
 	return accountCounter;
 }
 
@@ -246,7 +246,8 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 
 void displayOptions(account allAccounts[], int &numAccounts)
 {
-	while (true)
+	bool cont = true;
+	while (cont)
 	{
 		cout << "\n\tA Phone Company\n";
 		cout << setfill('-') << setw(40) << "\n";
@@ -311,7 +312,20 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		case 7: 
 			break;
 		case 8:
+			// Clear and reopen accounts file
+			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);
+
+			// Write accounts to file
+			for (int i = 0; i < numAccounts; i++)
+			{
+				accountsTxt << allAccounts[i].toEntry();
+				accountsTxt << "\n";
+			}
+
+			accountsTxt.close();
+
 			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
+			cont = false;
 			break;
 		}
 	}

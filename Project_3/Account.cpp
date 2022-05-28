@@ -1,6 +1,7 @@
 #include "Account.h"
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -80,6 +81,18 @@ void account::print()
 bool account::getClosed()
 {
 	return closed;
+}
+
+string account::toEntry()
+{
+	string tier;
+	if (sub->getTier() == BASIC) tier = "BASIC";
+	else if (sub->getTier() == PREMIUM) tier = "PREMIUM";
+	else if (sub->getTier() == PLATINUM) tier = "PLATINUM";
+
+	stringstream ss;
+	ss << firstName << " " << lastName << " " << day << " " << month << " " << year << " " << tier << " " << sub->getPhoneNumber() << " " << closed;
+	return ss.str();
 }
 
 

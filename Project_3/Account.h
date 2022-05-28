@@ -17,6 +17,7 @@ public:
 	void setSub(subscription *aSub);
 	void print();
 	bool getClosed();
+	std::string toEntry();
 	~account();
 
 	subscription *getSub();
