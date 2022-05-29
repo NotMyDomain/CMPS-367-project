@@ -1,6 +1,5 @@
 #include "Account.h"
 #include "PlatSub.h"
-
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -204,8 +203,11 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		subscription *aSub;
 		string newTier;
 
-		cout << "\n\tPlans\n";
-		cout << "Basic\tPremium\tPlatinum\n";
+		cout << "Plans:\n"
+			<< "\tBasic" << setfill('.') << setw(18) << "$65.00\n"
+			<< "\tPremium" << setfill('.') << setw(18) << "$120.00\n"
+			<< "\tPlatinum" << setfill('.') << setw(19) << "$160.00\n";
+
 		cout << "Which plan would you like to change to?: "; cin >> newTier;
 
 		if (newTier == "Basic")
@@ -229,6 +231,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		acct->setSub(aSub);
 		break;
 	}
+
 	default:
 		cout << "ERROR: UNRECOGNIZED SELECTION\n";
 		return false;
@@ -313,6 +316,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			break;
 		}
 		case 8:
+		{
 			// Clear and reopen accounts file
 			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);
 
@@ -329,12 +333,10 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			cont = false;
 			break;
 		}
+
+		default:
+			cout << "\nERROR: PLEASE MAKE A VALID SELECTION\n";
+			break;
+		}
 	}
 }
-
-
-
-
-
-
-

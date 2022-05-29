@@ -4,23 +4,34 @@
 #include <string>
 #include "Subscription.h"
 
+//declare account class,private members, and public functions
 class account
 {
 public:
-	account();
-	account(std::string fName, std::string lName, int aDay, int aMonth, int aYear, subscription *aSub);
+	account(); //default constructor
+	account(std::string fName, std::string lName, int aDay, int aMonth, int aYear, subscription *aSub); 
+	//constructor
     std::string getFName();
+	//Return first name
 	std::string getLName();
+	//Return last name
 	void setClosed(bool closed);
+	//set account as closed
 	void setFullName(std::string fName, std::string lName);
-	void setBirthday(int aDay, int aMonth, int aYear);
-	void setSub(subscription *aSub);
+	//Set full name
+	void setBirthday(int aDay, int aMonth, int aYear); 
+	//set full birthday
+	void setSub(subscription *aSub); 
+	//set subscription tier
 	void print();
-	bool getClosed();
-	std::string toEntry();
+	// Prints the full name, full birthday, subscription tier, and if account is closed
+	bool getClosed(); 
+	//get closed status
+	std::string toEntry(); //Enters the private members back into file
 	~account();
-
+	//destructor
 	subscription *getSub();
+	//gets subscription tier
 
 
 private:

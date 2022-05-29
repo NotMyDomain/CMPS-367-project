@@ -10,7 +10,7 @@ premiumSubscription::premiumSubscription() : basicSubscription()
 	setHasInsurance(true); // premium gets insurance by default
 }
 
-void premiumSubscription::print()
+void premiumSubscription::print() //Prints the data cap, user's phone number, and account add-ons
 {
 	cout << "Premium Subscription\n";
 	cout << "Gigs of Data: " << getDataCap() << endl;
@@ -18,42 +18,50 @@ void premiumSubscription::print()
 	cout << "Add-ons\n";
 	cout << "+Insurance\n";
 	
+	//see if they have services selected
 	if (hasStreamingServices)
 		cout << "+Streaming Services\n";
+	else
+		cout << "-Streaming Services\n";
 
 	if (has24HrService)
-		cout << "+24-hr Services\n";
+		cout << "+24-Hr Services\n";
+	else
+		cout << "-24-Hr Services\n";
 
 	if (hasTVPackage)
 		cout << "+TV Package\n";
+	else
+		cout << "-TV Package\n";
 }
 
 float premiumSubscription::generateBill()
 {
 	float bill = 120.0f; // $120 base price for basic plan
 	// premium gets insurance for free
-	if (hasStreamingServices) bill += 10.0f;
-	if (hasTVPackage)bill += 20.0f;
-	if (has24HrService) bill += 15.0f;
+	if (hasStreamingServices) bill += 10.0f; //$10 for streaming services
+	if (has24HrService) bill += 15.0f; //$15 for music services
+	if (hasTVPackage)bill += 20.0f; //$20 for TV package
+	
 	return bill;
 }
 
-void premiumSubscription::setStreamingServices(bool aStreamingService)
+void premiumSubscription::setStreamingServices(bool aStreamingService) //sets streamking services
 {
 	hasStreamingServices = aStreamingService;
 }
 
-void premiumSubscription::setTVPackage(bool aTVPackage)
+void premiumSubscription::setTVPackage(bool aTVPackage) //sets TV package
 {
 	hasTVPackage = aTVPackage;
 }
 
-void premiumSubscription::set24HrService(bool a24HrService)
+void premiumSubscription::set24HrService(bool a24HrService) //sets 24 hr service
 {
 	has24HrService = a24HrService;
 }
 
-void premiumSubscription::customizePlan()
+void premiumSubscription::customizePlan()//Customizes plan and bill so that they have the choice to add add-ons
 {
 	char choice;
 	cout << "Would you like to add-on the Video Streaming package for $10.00?(Y/N): "; cin >> choice;
