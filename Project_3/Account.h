@@ -15,6 +15,12 @@ public:
 	//Return first name
 	std::string getLName();
 	//Return last name
+	int getBday();
+	//returns the birth day
+	int getBmonth();
+	//returns the birth month
+	int getByear();
+	//returns the bith year
 	void setClosed(bool closed);
 	//set account as closed
 	void setFullName(std::string fName, std::string lName);
@@ -27,7 +33,7 @@ public:
 	// Prints the full name, full birthday, subscription tier, and if account is closed
 	bool getClosed(); 
 	//get closed status
-	std::string toEntry(); //Enters the private members back into file
+	void toEntry(int counter_test); //Enters the private members back into file
 	~account();
 	//destructor
 	subscription *getSub();
