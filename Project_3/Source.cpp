@@ -1,6 +1,5 @@
 #include "Account.h"
 #include "PlatSub.h"
-
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -12,35 +11,46 @@ using namespace std;
 
 
 int readCustomerInfo(account allAccounts[]);
+//Reads customer info from file
 void displayOptions(account allAccounts[], int &numAccounts);
+//Displays options that customers can choose from
 bool startPlan(account allAccounts[], int &numAccounts);
+//starts a new plan for a new customer
 account *accountFinder(account allAccounts[], const int numAccounts);
+//finds account and determines if it exists
 bool editAccountAndPlan(account allAccounts[], const int numAccounts);
+//Displays options that a user can choose from to edit account
 
 int main()
 {
 	srand(time(NULL)); //set random phone number
-	const int numOfAccounts = 512; // Make enough spaces of accounts
+
+	const int numOfAccounts = 1000; // Make enough spaces for accounts
+	
 	account accounts[numOfAccounts];
 
-	int numAccounts = readCustomerInfo(accounts);
-	displayOptions(accounts,numAccounts);
+	int numAccounts = readCustomerInfo(accounts); //read from file
+
+	if (numAccounts < 0) return -1; // Quit if we get an error from readCustomerInfo
+	
+	displayOptions(accounts,numAccounts); //display options to choose from
 	system("pause");
 	return 0;
 
 }
 
+//Reads from "accounts.txt" and sets variables
 int readCustomerInfo(account allAccounts[])
 {
 
 	fstream accounts("accounts.txt", ios::in);
 	
+	//set counter to track num of accounts
 	int accountCounter = 0;
 
 	while (!accounts.eof())
 	{
 		
-
 		//Data elemets entires in file
 		string fName;
 		string lName;
@@ -73,7 +83,7 @@ int readCustomerInfo(account allAccounts[])
 			return -1;
 		}
 
-		//create account from read data
+		//creates account from data read
 		aSub->setPhoneNumber(aPhoneNumber);
 		account *aCustomerAccount = new account(fName, lName, aDay, aMonth, aYear,aSub);
 		aCustomerAccount->setClosed(aClosed);
@@ -81,10 +91,12 @@ int readCustomerInfo(account allAccounts[])
 
 		accountCounter++;
 	}
+
 	accounts.close();
 	return accountCounter;
 }
 
+//Starts new account and plan for a new customer
 bool startPlan(account allAccounts[], int &numAccounts)
 {
 	string fName;
@@ -96,14 +108,18 @@ bool startPlan(account allAccounts[], int &numAccounts)
 	long aPhoneNumber;
 	subscription *aSub;
 
+	//Prompts user to input thier basic info
 	cout << "First name: "; cin >> fName;
 	cout << "Last name: "; cin >> lName;
 	cout << "Birthday (dd mm yyyy): "; cin >> aDay >> aMonth >> aYear;
 
-	cout << "\tPlans\n";
-	cout << "Basic\tPremium\tPlatinum\n";
+	cout << "Plans:\n"
+		<< "\tBasic" << setfill('.') << setw(18) << "$65.00\n"
+		<< "\tPremium" << setfill('.') << setw(18) << "$120.00\n"
+		<< "\tPlatinum" << setfill('.') << setw(19) << "$160.00\n";
 	cout << "Which plan would you like?: "; cin >> aTier;
 
+	//creates a customer's subcription 
 	if (aTier == "Basic")
 	{
 		aSub = new basicSubscription();
@@ -155,7 +171,7 @@ account * accountFinder(account allAccounts[], const int numAccounts)
 
 bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 {
-
+	//need to add something so that it does not execute when name is not found
 	account* acct=accountFinder(allAccounts, numAccounts);
 
 		cout << "1. Edit Name\n"
@@ -204,8 +220,11 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		subscription *aSub;
 		string newTier;
 
-		cout << "\n\tPlans\n";
-		cout << "Basic\tPremium\tPlatinum\n";
+		cout << "Plans:\n"
+			<< "\tBasic" << setfill('.') << setw(18) << "$65.00\n"
+			<< "\tPremium" << setfill('.') << setw(18) << "$120.00\n"
+			<< "\tPlatinum" << setfill('.') << setw(19) << "$160.00\n";
+
 		cout << "Which plan would you like to change to?: "; cin >> newTier;
 
 		if (newTier == "Basic")
@@ -229,6 +248,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		acct->setSub(aSub);
 		break;
 	}
+
 	default:
 		cout << "ERROR: UNRECOGNIZED SELECTION\n";
 		return false;
@@ -258,7 +278,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 
 		int choice;
 
-		cout << "How can we help you today?\n"
+		cout << "\nHow can we help you today?\n"
 			<< "Please make a selection (1-8) : "; cin >> choice;
 		cout << endl;
 
@@ -313,6 +333,7 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			break;
 		}
 		case 8:
+		{
 			// Clear and reopen accounts file
 			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);
 
@@ -320,8 +341,10 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			for (int i = 0; i < numAccounts; i++)
 			{
 				accountsTxt << allAccounts[i].toEntry();
-				accountsTxt << "\n";
+				if (i < numAccounts - 1) // Don't print extra new line at the end
+					accountsTxt << endl;
 			}
+	
 
 			accountsTxt.close();
 
@@ -329,12 +352,10 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			cont = false;
 			break;
 		}
+
+		default:
+			cout << "\nERROR: PLEASE MAKE A VALID SELECTION\n";
+			break;
+		}
 	}
 }
-
-
-
-
-
-
-
