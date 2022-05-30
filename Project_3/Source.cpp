@@ -339,8 +339,10 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			for (int i = 0; i < numAccounts; i++)
 			{
 				accountsTxt << allAccounts[i].toEntry();
-				accountsTxt << "\n";
+				if (i < numAccounts - 1) // Don't print extra new line at the end
+					accountsTxt << endl;
 			}
+	
 
 			accountsTxt.close();
 
