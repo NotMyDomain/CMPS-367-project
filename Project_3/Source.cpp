@@ -1,3 +1,11 @@
+/*---------------------------------------------------------------------
+Name:			Lauren Lazos,Edwin Navarro, & Erik McAtee
+Assignment:					  Project 3
+Date:						 May 29, 2022
+Description: This program manages a Phone Company's customer data
+		base and helps manage customers profile's, edit plans, and 
+							view accounts. 
+---------------------------------------------------------------------*/
 #include "Account.h"
 #include "PlatSub.h"
 #include <iostream>
@@ -108,7 +116,7 @@ bool startPlan(account allAccounts[], int &numAccounts)
 	long aPhoneNumber;
 	subscription *aSub;
 
-	//Prompts user to input thier basic info
+	//Prompts user to input their basic info
 	cout << "First name: "; cin >> fName;
 	cout << "Last name: "; cin >> lName;
 	cout << "Birthday (dd mm yyyy): "; cin >> aDay >> aMonth >> aYear;
@@ -140,7 +148,7 @@ bool startPlan(account allAccounts[], int &numAccounts)
 
 	cout << "Your randomly assigned phone number: " << aSub->getPhoneNumber() << endl;
 
-	
+	//creates new accout with given information
 	account *newAccount = new account(fName, lName, aDay, aMonth, aYear, aSub);
 	allAccounts[numAccounts] = *newAccount;
 
@@ -149,7 +157,7 @@ bool startPlan(account allAccounts[], int &numAccounts)
 	return true;
 }
 
-account * accountFinder(account allAccounts[], const int numAccounts)
+account * accountFinder(account allAccounts[], const int numAccounts) //Finds an existing user or returns an error
 {
 	string fName;
 	string lName;
@@ -169,9 +177,8 @@ account * accountFinder(account allAccounts[], const int numAccounts)
 	return nullptr;
 }
 
-bool editAccountAndPlan(account allAccounts[], const int numAccounts)
+bool editAccountAndPlan(account allAccounts[], const int numAccounts) //Edits the name, birthday, phone number, and plan when prompted
 {
-	//need to add something so that it does not execute when name is not found
 	account* acct=accountFinder(allAccounts, numAccounts);
 
 		cout << "1. Edit Name\n"
@@ -185,7 +192,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 
 	switch (editChoice)
 	{
-	case 1:
+	case 1: //Edit Full name
 	{
 		string fName;
 		string lName;
@@ -193,7 +200,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		acct->setFullName(fName, lName);
 		break;
 	}
-	case 2:
+	case 2: //Edit birthday
 	{
 		int aDay;
 		int aMonth;
@@ -203,7 +210,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		acct->setBirthday(aDay, aMonth, aYear);
 		break;
 	}
-	case 3:
+	case 3://Assigns a user a new random number
 	{
 		int randomNumber = rand() % 8999999 + 1000000; //randomized phone number assinged
 		stringstream ss;
@@ -213,7 +220,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		acct->getSub()->setPhoneNumber(aPhoneNumber);
 		break;
 	}
-	case 4:
+	case 4: //change accout plan
 	{
 		delete acct->getSub();
 
@@ -249,7 +256,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 		break;
 	}
 
-	default:
+	default: //return error message
 		cout << "ERROR: UNRECOGNIZED SELECTION\n";
 		return false;
 
@@ -260,7 +267,7 @@ bool editAccountAndPlan(account allAccounts[], const int numAccounts)
 
 }
 
-void displayOptions(account allAccounts[], int &numAccounts)
+void displayOptions(account allAccounts[], int &numAccounts) //Displays options that customers can choose from
 {
 	bool cont = true;
 	while (cont)
@@ -269,11 +276,11 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		cout << setfill('-') << setw(40) << "\n";
 		cout << "1. Start a new plan\n"
 			<< "2. Edit account & current plan\n"
-			<< "3. View Available plans & add-ons\n"
+			<< "3. View available plans & add-ons\n"
 			<< "4. Cancel plan\n"
-			<< "5. Print All Accounts\n"
+			<< "5. Print all accounts\n"
 			<< "6. Customize plan\n"
-			<< "7. Print Account Bill\n"
+			<< "7. Print account bill\n"
 			<< "8. Exit and save\n";
 
 		int choice;
@@ -284,13 +291,13 @@ void displayOptions(account allAccounts[], int &numAccounts)
 
 		switch (choice)
 		{
-		case 1:
+		case 1: //Start a new plan
 			startPlan(allAccounts, numAccounts);
 			break;
-		case 2:
+		case 2: //Edit account and current plan
 			editAccountAndPlan(allAccounts, numAccounts);
 			break;
-		case 3: 
+		case 3: //View available plans and addons
 			cout << endl;
 			cout << "\t\t\tPlans & Bundles\n";
 			cout << setfill('-') << setw(60) << "\n";
@@ -306,33 +313,33 @@ void displayOptions(account allAccounts[], int &numAccounts)
 				<< "\tPremium Music service" << setfill('.') << setw(18) << "$30.00\n";
 			cout << endl;
 			break;
-		case 4:
+		case 4: //cancel plan
 		{
 			account *acct = accountFinder(allAccounts, numAccounts);
 			acct->setClosed(true);
 			cout << "\nAccount is now closed, Thank you for choosing us!\n";
 			break;
 		}
-		case 5:
+		case 5://print all account's and info
 			for (int i = 0; i < numAccounts; i++)
 			{
 				allAccounts[i].print();
 			}
 			break;
-		case 6: 
+		case 6: //customize plan 
 		{
 			account *acct = accountFinder(allAccounts, numAccounts);
 			acct->getSub()->customizePlan();
 			acct->print();
 		}
 			break;
-		case 7: 
+		case 7: //print account bill
 		{
 			account *acct = accountFinder(allAccounts, numAccounts);
 			cout << "Your bill is: $" << acct->getSub()->generateBill() << endl;
 			break;
 		}
-		case 8:
+		case 8: //Save and quit
 		{
 			// Clear and reopen accounts file
 			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);
@@ -345,7 +352,6 @@ void displayOptions(account allAccounts[], int &numAccounts)
 					accountsTxt << endl;
 			}
 	
-
 			accountsTxt.close();
 
 			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
