@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <fstream>
 
 using namespace std;
 
@@ -85,27 +84,9 @@ bool account::getClosed() //get closed value
 	return closed;
 }
 
-int account::getBday()
+string account::toEntry() //Enters the private members back into file
 {
-	return day;
-}
-
-int account::getBmonth()
-{
-	return month;
-}
-
-int account::getByear()
-{
-	return year;
-}
-
-/*
-void account::toEntry(int counter_test) //Enters the private members back into file
-{
-	ofstream accountsTxt("accounts.txt");
 	string tier;
-	string line;
 
 	//thier tier corresponds to what will be read to the file
 	if (sub->getTier() == BASIC) tier = "BASIC";
@@ -113,13 +94,10 @@ void account::toEntry(int counter_test) //Enters the private members back into f
 	else if (sub->getTier() == PLATINUM) tier = "PLATINUM";
 
 	//Put the information back into the file in the correct format
-
-	accountsTxt << firstName << " " << lastName << " " << day << " " << month << " " << year << " " << tier << " " << sub->getPhoneNumber() << " " << closed << endl;
-	cout << "I am here\n";
-
-	accountsTxt.close();
+	stringstream ss;
+	ss << firstName << " " << lastName << " " << day << " " << month << " " << year << " " << tier << " " << sub->getPhoneNumber() << " " << closed;
+	return ss.str();
 }
-*/
 
 //destructor
 account::~account()

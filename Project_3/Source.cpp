@@ -9,19 +9,17 @@
 
 using namespace std;
 
-const int numOfAccounts = 512;
 
 int readCustomerInfo(account allAccounts[]);
 void displayOptions(account allAccounts[], int &numAccounts);
 bool startPlan(account allAccounts[], int &numAccounts);
 account *accountFinder(account allAccounts[], const int numAccounts);
 bool editAccountAndPlan(account allAccounts[], const int numAccounts);
-account *accountcopier(account allAccounts[], const int numAccounts);
 
 int main()
 {
 	srand(time(NULL)); //set random phone number
-	// Make enough spaces of accounts
+	const int numOfAccounts = 512; // Make enough spaces of accounts
 	account accounts[numOfAccounts];
 
 	int numAccounts = readCustomerInfo(accounts);
@@ -319,30 +317,18 @@ void displayOptions(account allAccounts[], int &numAccounts)
 		}
 		case 8:
 		{
-			ofstream accountsTxt("accounts.txt");
-			int test = 0;
+			// Clear and reopen accounts file
+			fstream accountsTxt("accounts.txt", fstream::out | fstream::trunc);
+
 			// Write accounts to file
 			for (int i = 0; i < numAccounts; i++)
 			{
-				account *acct = accountcopier(allAccounts, i);
-				string tier;
-				string line;
-
-				//thier tier corresponds to what will be read to the file
-				if (acct->getSub()->getTier() == BASIC) tier = "BASIC";
-				else if (acct->getSub()->getTier() == PREMIUM) tier = "PREMIUM";
-				else if (acct->getSub()->getTier() == PLATINUM) tier = "PLATINUM";
-
-				//Put the information back into the file in the correct format
-
-				accountsTxt << allAccounts[i].getFName() << " " << allAccounts[i].getLName() << " " << allAccounts[i].getBday() << " " << allAccounts[i].getBmonth() << " " << allAccounts[i].getByear() << " " << tier << " " << acct->getSub()->getPhoneNumber() << " " << allAccounts[i].getClosed();
-				if (i != numAccounts - 1)
-				{
-					accountsTxt << endl;
-				}
-				cout << "I am here\n";
+				accountsTxt << allAccounts[i].toEntry();
+				accountsTxt << "\n";
 			}
+
 			accountsTxt.close();
+
 			cout << "Thank you for choosing A Phone Company, have a wonderful day!\n";
 			cont = false;
 			break;
@@ -353,8 +339,4 @@ void displayOptions(account allAccounts[], int &numAccounts)
 			break;
 		}
 	}
-}
-account *accountcopier(account allAccounts[], const int test_counter)
-{
-	return &(allAccounts[test_counter]);
 }
