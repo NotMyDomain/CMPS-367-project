@@ -30,6 +30,8 @@ int main()
 	account accounts[numOfAccounts];
 
 	int numAccounts = readCustomerInfo(accounts); //read from file
+
+	if (numAccounts < 0) return -1; // Quit if we get an error from readCustomerInfo
 	
 	displayOptions(accounts,numAccounts); //display options to choose from
 	system("pause");
